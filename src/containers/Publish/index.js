@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
-import Form from './Form';
-
 import Loader from '../../components/Loader';
+
+import Form from './Form';
 import { Container } from './styles';
 
 class Publish extends PureComponent {

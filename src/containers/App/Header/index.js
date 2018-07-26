@@ -1,9 +1,10 @@
 import React from 'react';
 import CameraIcon from 'react-icons/lib/fa/camera-retro';
-import { Link } from "@reach/router";
+import { Link } from '@reach/router';
+
+import Button from '../../../components/Button';
 
 import { Wrapper, Inner, Title } from './styles';
-import Button from '../../../components/Button';
 
 export default function Header() {
   return (

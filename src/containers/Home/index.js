@@ -4,6 +4,7 @@ import Masonry from 'react-masonry-component';
 
 import Container from '../../components/Container';
 import Loader from '../../components/Loader';
+
 import Photo from './Photo';
 
 class Home extends PureComponent {

@@ -5,6 +5,7 @@ import 'sanitize.css';
 
 import App from './containers/App';
 import Routes from './routes';
+import registerServiceWorker from './registerServiceWorker';
 import createStore from './createStore';
 import './globalStyles';
 
@@ -19,3 +20,5 @@ const Root = () => (
 );
 
 render(<Root />, document.getElementById('root'));
+
+registerServiceWorker();
