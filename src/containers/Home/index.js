@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Masonry from 'react-masonry-component';
 
 import Container from '../../components/Container';
+import Loader from '../../components/Loader';
 import Photo from './Photo';
 
 class Home extends PureComponent {
@@ -11,9 +12,7 @@ class Home extends PureComponent {
   }
 
   renderPhotos() {
-    const { loading, data } = this.props.photos;
-
-    if (loading) return "Loading...";
+    const { data } = this.props.photos;
 
     return (
       <Masonry options={{ transitionDuration: 0, gutter: 20 }}>
@@ -30,8 +29,11 @@ class Home extends PureComponent {
   }
 
   render() {
+    const { loading } = this.props.photos;
+
     return (
       <Container>
+        <Loader show={loading} />
         {this.renderPhotos()}
       </Container>
     );

@@ -5,4 +5,9 @@ injectGlobal`
     font-family: Open Sans;
     background: #fafafa;
   }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
 `;
