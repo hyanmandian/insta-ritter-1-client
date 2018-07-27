@@ -1,3 +1,5 @@
+import { navigate } from '@reach/router';
+
 export default {
   state: {
     loading: false,
@@ -25,6 +27,8 @@ export default {
       dispatch.publish.publishSuccess();
 
       dispatch.publish.toggleLoading(false);
+
+      navigate('/');
     }
   })
 };

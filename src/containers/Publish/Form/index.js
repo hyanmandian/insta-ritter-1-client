@@ -1,10 +1,8 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { withFormik } from 'formik';
 import SendIcon from 'react-icons/lib/fa/paper-plane';
 
-import Input from '../../../components/Input';
-import Button from '../../../components/Button';
-import File from '../../../components/File';
+import { Input, Button, File } from './styles';
 
 function Form({
   values,
@@ -13,8 +11,6 @@ function Form({
   handleSubmit,
   isSubmitting
 }) {
-  console.log(values);
-
   return (
     <form onSubmit={handleSubmit}>
       <File
@@ -23,14 +19,19 @@ function Form({
         onChange={handleChange}
         onBlur={handleBlur}
       />
-      <Input
-        type="text"
-        name="title"
-        onChange={handleChange}
-        onBlur={handleBlur}
-        value={values.title}
-      />
-      <Button type="submit" icon={SendIcon} disabled={isSubmitting}>Submit</Button>
+      { values.file &&
+        <Fragment>
+          <Input
+            type="text"
+            name="title"
+            placeholder="Title"
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={values.title}
+          />
+          <Button type="submit" icon={<SendIcon />} disabled={isSubmitting}>Submit</Button>
+        </Fragment>
+      }
     </form>
   );
 }

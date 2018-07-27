@@ -1,12 +1,13 @@
 import styled from 'styled-components';
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.label`
   border: 1px solid #dbdbdb;
   background: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  padding: 10px;
 `;
 
 export const Input = styled.input`
@@ -17,6 +18,12 @@ export const Input = styled.input`
   position: absolute;
 `;
 
-export const Text = styled.p``;
+export const Text = styled.p`
+  font-size: 16px;
+  margin: 0;
+`;
 
-export const Image = styled.img``;
+export const Image = styled.img`
+  width: 100%;
+  border: 1px solid #dbdbdb;
+`;
