@@ -1,6 +1,7 @@
 import React, { PureComponent } from "react";
 
 import isValidImage from "../../utils/isValidImage";
+import fileToBase64 from '../../utils/fileToBase64';
 
 import { Wrapper, Input, Text, Image } from "./styles";
 
@@ -11,33 +12,28 @@ export default class File extends PureComponent {
     uri: ""
   };
 
-  handleChange = (event) => {
+  handleChange = async (event) => {
     event.persist();
 
     const file = event.target.files && event.target.files[0] ? event.target.files[0] : null;
 
     if (!file) return;
 
-    this.setState(state => ({ ...state, ...file }));
-
-    if (!isValidImage(file.type)) {
-      this.props.onChange && this.props.onChange(event);
-    }
-
-    const reader = new FileReader();
-
-    reader.onload = ({ target: { result } }) => {
-      this.setState(state => ({ ...state, uri: result }));
-
-      this.props.onChange && this.props.onChange({
-        target: {
-          name: event.target.name,
-          value: result,
-        },
-      });
+    const syntheticEvent = {
+      target: {
+        name: event.target.name,
+        value: event.target.value,
+      },
     };
 
-    reader.readAsDataURL(file);
+    if (isValidImage(file.type)) {
+      file.uri = await fileToBase64(file);
+      syntheticEvent.target.value = file.uri;
+    }
+
+    this.setState(state => ({ ...state, ...file }));
+
+    this.props.onChange && this.props.onChange(syntheticEvent);
   };
 
   renderPreview() {
