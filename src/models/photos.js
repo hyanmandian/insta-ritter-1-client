@@ -23,7 +23,7 @@ export default {
     async fetch() {
       dispatch.photos.toggleLoading(true);
 
-      const { data } = await API.photos();
+      const { data } = await API.photos.all();
 
       dispatch.photos.fetchSuccess(data);
 
