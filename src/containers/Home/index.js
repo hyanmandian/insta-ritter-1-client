@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
+import { Link } from '@reach/router';
 import Masonry from 'react-masonry-component';
 
 import Container from '../../components/Container';
@@ -7,13 +8,24 @@ import Loader from '../../components/Loader';
 
 import Photo from './Photo';
 
+import { Message } from './styles';
+
 class Home extends PureComponent {
   componentDidMount() {
     this.props.dispatch.photos.fetch();
   }
 
   renderPhotos() {
-    const { data } = this.props.photos;
+    const { data, loading } = this.props.photos;
+
+    if (!data.length && !loading) {
+      return (
+        <Message>
+          Ainda não temos fotinhos :( <br/> <br/>
+          <Link to="/publish">Clique aqui</Link> para publicar sua primeira foto :D
+        </Message>
+      );
+    }
 
     return (
       <Masonry options={{ transitionDuration: 0, gutter: 20 }}>
