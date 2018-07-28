@@ -14,12 +14,11 @@ function Form({
   return (
     <form onSubmit={handleSubmit}>
       <File
-        type="file"
-        name="file"
+        name="uri"
         onChange={handleChange}
         onBlur={handleBlur}
       />
-      { values.file &&
+      { values.uri &&
         <Fragment>
           <Input
             type="text"
@@ -37,7 +36,7 @@ function Form({
 }
 
 export default withFormik({
-  mapPropsToValues: props => ({ title: '' }),
+  mapPropsToValues: props => ({ title: '', uri: '' }),
   handleSubmit: async (
     values,
     {

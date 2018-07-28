@@ -1,39 +1,53 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent } from "react";
 
-import isValidImage from '../../utils/isValidImage';
+import isValidImage from "../../utils/isValidImage";
 
-import { Wrapper, Input, Text, Image } from './styles';
+import { Wrapper, Input, Text, Image } from "./styles";
 
 export default class File extends PureComponent {
   state = {
-    file: null,
+    name: "",
+    type: "",
+    uri: ""
   };
 
   handleChange = (event) => {
     event.persist();
 
-    if (!event.target.files || !event.target.files[0]) return;
+    const file = event.target.files && event.target.files[0] ? event.target.files[0] : null;
 
-    this.setState((state) => ({
-      ...state,
-      file: event.target.files[0],
-    }));
+    if (!file) return;
 
-    this.props.onChange && this.props.onChange(event);
-  }
+    this.setState(state => ({ ...state, ...file }));
 
-  renderPreview() {
-    const { file } = this.state;
-
-    if (file && isValidImage(file.type)) {
-      return (
-        <Image src={URL.createObjectURL(file)} alt="Preview image" />
-      );
+    if (!isValidImage(file.type)) {
+      this.props.onChange && this.props.onChange(event);
     }
 
-    return (
-      <Text>{ file ? file.name : 'Click here to select your file' }</Text>
-    );
+    const reader = new FileReader();
+
+    reader.onload = ({ target: { result } }) => {
+      this.setState(state => ({ ...state, uri: result }));
+
+      this.props.onChange && this.props.onChange({
+        target: {
+          name: event.target.name,
+          value: result,
+        },
+      });
+    };
+
+    reader.readAsDataURL(file);
+  };
+
+  renderPreview() {
+    const { name, uri } = this.state;
+
+    if (uri) {
+      return <Image src={uri} alt="Preview image" />;
+    }
+
+    return <Text>{name ? name : "Click here to select your file"}</Text>;
   }
 
   render() {
@@ -46,4 +60,4 @@ export default class File extends PureComponent {
       </Wrapper>
     );
   }
-};
+}
