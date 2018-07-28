@@ -1,4 +1,4 @@
-import axios from 'axios';
+import API from '../api';
 
 export default {
   state: {
@@ -23,7 +23,7 @@ export default {
     async fetch() {
       dispatch.photos.toggleLoading(true);
 
-      const { data: { data } } = await axios.get('http://localhost:3000/photos');
+      const { data } = await API.photos();
 
       dispatch.photos.fetchSuccess(data);
 

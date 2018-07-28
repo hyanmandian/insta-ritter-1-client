@@ -1,5 +1,6 @@
 import { navigate } from '@reach/router';
-import axios from 'axios';
+
+import API from '../api';
 
 export default {
   state: {
@@ -20,10 +21,10 @@ export default {
     },
   },
   effects: (dispatch) => ({
-    async publish(values) {
+    async publish(data) {
       dispatch.publish.toggleLoading(true);
 
-      await axios.post('http://localhost:3000/photos', values);
+      await API.photos.store(data);
 
       dispatch.publish.publishSuccess();
 
